@@ -8,10 +8,10 @@ i_p = inputParser;
 
 i_p.addRequired('image',@isnumeric);
 
-i_p.addParamValue('quantiles',@isnumeric);
-i_p.addParamValue('limits',@isnumeric);
+i_p.addParameter('quantiles',@isnumeric);
+i_p.addParameter('limits',@isnumeric);
 
-i_p.addParamValue('debug',0,@(x)(isnumeric(x) && (x == 0 || x == 1) || islogical(x)));
+i_p.addParameter('debug',0,@(x)(isnumeric(x) && (x == 0 || x == 1) || islogical(x)));
 
 i_p.parse(image,varargin{:});
 
