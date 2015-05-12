@@ -19,8 +19,8 @@ i_p.addRequired('high',@(x)(isnumeric(x) || islogical(x)));
 
 i_p.parse(I,high);
 
-i_p.addParamValue('color_map',jet(double(max(high(:)))),@(x)(all(high(:) == 0) || (isnumeric(x) && (size(x,1) >= max(unique(high))))));
-i_p.addParamValue('mix_percent',1,@(x)(isnumeric(x)));
+i_p.addParameter('color_map',jet(double(max(high(:)))),@(x)(all(high(:) == 0) || (isnumeric(x) && (size(x,1) >= max(unique(high))))));
+i_p.addParameter('mix_percent',1,@(x)(isnumeric(x)));
 
 i_p.parse(I,high,varargin{:});
 
@@ -45,7 +45,7 @@ if (all(high(:) == 0))
 end
 
 labels = unique(high);
-assert(labels(1) == 0)
+assert(labels(1) == 0,'Looks like the image doesn''t have any labels.')
 labels = labels(2:end);
 
 for i=1:length(labels)
