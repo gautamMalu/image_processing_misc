@@ -9,7 +9,7 @@ i_p.addRequired('bw_image',@(x)isnumeric(x) || islogical(x));
 i_p.addRequired('prop_name',@ischar);
 i_p.addRequired('max_val',@isnumeric);
 
-i_p.addParamValue('connectivity',8,@(x)x == 4 || x == 8);
+i_p.addParameter('connectivity',8,@(x)x == 4 || x == 8);
 
 i_p.parse(bw_image,prop_name,max_val,varargin{:});
 
