@@ -32,7 +32,11 @@ listing = dir(folder);
 %the first two entries from dir are always, '.' and '..', they are
 %references to the current directory and one up, remove them from the
 %search
-listing(1:2)=[];
+if (length(listing) > 2)
+    listing(1:2)=[];
+else
+    warning(['No files found for: ', exp, ' ', folder]);
+end
 
 isfolder = {listing.isdir};
 files = {listing.name};
