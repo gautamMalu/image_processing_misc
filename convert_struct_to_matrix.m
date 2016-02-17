@@ -1,4 +1,4 @@
-function output_mat = convert_struct_to_matrix(input_struct,varargin)
+function [output_mat,varargout] = convert_struct_to_matrix(input_struct,varargin)
 % convert_struct_to_matrix - Take an input_struct and convert it to a
 % matrix.
 %
@@ -39,5 +39,7 @@ for i = 1:length(fields)
     this_data = input_struct.(fields{i});
     output_mat(1:length(this_data),i) = this_data;
 end
+
+varargout{1} = fields;
 
 end
