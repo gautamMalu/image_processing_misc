@@ -1,12 +1,12 @@
-function high_image = create_highlighted_image(I,high,varargin)
+function high_image = create_highlighted_image(image,high,varargin)
 %CREATE_HIGHLIGHTED_IMAGE    add highlights to an image
 %
 %   H_I = create_highlighted_image(I,HIGHLIGHTS) adds green highlights to
-%   image 'I', using the binary image 'HIGHLIGHTS' as the guide
+%   image 'image', using the binary image 'HIGHLIGHTS' as the guide
 %
-%   H_I = create_highlighted_image(I,HIGHLIGHTS,'color_map',[R,G,B]) adds
+%   H_I = create_highlighted_image(image,HIGHLIGHTS,'color_map',[R,G,B]) adds
 %   highlights of color specified by the RGB sequence '[R,G,B]' to image
-%   'I', using the binary image 'HIGHLIGHTS' as the guide
+%   'image', using the binary image 'HIGHLIGHTS' as the guide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%Setup variables and parse command line
@@ -14,29 +14,29 @@ function high_image = create_highlighted_image(I,high,varargin)
 i_p = inputParser;
 i_p.FunctionName = 'CREATE_HIGHLIGHTED_IMAGE';
 
-i_p.addRequired('I',@(x)isnumeric(x) || islogical(x));
+i_p.addRequired('image',@(x)isnumeric(x) || islogical(x));
 i_p.addRequired('high',@(x)(isnumeric(x) || islogical(x)));
 
-i_p.parse(I,high);
+i_p.parse(image,high);
 
 i_p.addParameter('color_map',jet(double(max(high(:)))),@(x)(all(high(:) == 0) || (isnumeric(x) && (size(x,1) >= max(unique(high))))));
 i_p.addParameter('mix_percent',1,@(x)(isnumeric(x)));
 
-i_p.parse(I,high,varargin{:});
+i_p.parse(image,high,varargin{:});
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%Main Program
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-image_size = size(I);
+image_size = size(image);
 
 if (size(image_size) < 3)
-    high_image_red = I;
-    high_image_green = I;
-    high_image_blue = I;
+    high_image_red = image;
+    high_image_green = image;
+    high_image_blue = image;
 else
-    high_image_red = I(:,:,1);
-    high_image_green = I(:,:,2);
-    high_image_blue = I(:,:,3);
+    high_image_red = image(:,:,1);
+    high_image_green = image(:,:,2);
+    high_image_blue = image(:,:,3);
 end
 
 if (all(high(:) == 0))
