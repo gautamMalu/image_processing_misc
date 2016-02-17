@@ -7,9 +7,9 @@ i_p = inputParser;
 i_p.FunctionName = 'filter_to_largest_object';
 
 i_p.addRequired('labelImage',@(x)isnumeric(x) || islogical(x));
-i_p.addParameter('connectivity',8,@(x)isnumeric);
 
-i_p.parse(labelImage);
+i_p.addParameter('connectivity',8,@isnumeric);
+i_p.addParameter('num_objs',1,@isnumeric);
 
 i_p.parse(labelImage,varargin{:});
 
@@ -25,6 +25,9 @@ end
 
 props = regionprops(labelImage,'Area');
 
-largestObj = ismember(labelImage, find([props.Area] == max([props.Area])));
+area_sort = sort([props.Area],'descend');
+min_size = area_sort(i_p.Results.num_objs);
+
+largestObj = ismember(labelImage, find([props.Area] >= min_size));
 
 end
