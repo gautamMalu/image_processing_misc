@@ -3,5 +3,5 @@ function filled_image = fill_small_holes(binary_image,max_hole_size)
     
     small_holes = bwpropclose(filled_holes,'Area',max_hole_size);
     
-    filled_image = binary_image | filled_holes;
+    filled_image = binary_image | small_holes;
 end
