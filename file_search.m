@@ -2,11 +2,11 @@ function filecell = file_search(exp,folder,varargin)
 % file_search Search for files in a given folder using a regular expression
 %             to filter the results
 %
-%   Required Parameters: 
+%   Required Parameters:
 %     -exp - the experssion used as a filter, use '.*' to find all files
 %     -folder - where to search for files
 %
-%   Optional: 
+%   Optional:
 %     -return_complete_files - True/False for returning the complete
 %                              path to the file
 %
@@ -20,6 +20,7 @@ function filecell = file_search(exp,folder,varargin)
 i_p = inputParser;
 
 i_p.addParameter('return_complete_files',0,@(x)x==1 || x==0);
+i_p.addOptional('debug',0,@(x)x==1 || x==0);
 
 i_p.parse(varargin{:});
 
@@ -35,7 +36,9 @@ listing = dir(folder);
 if (length(listing) > 2)
     listing(1:2)=[];
 else
-    warning(['No files found for: ', exp, ' ', folder]);
+    if (i_p.Results.debug)
+        warning(['No files found for: ', exp, ' ', folder]);
+    end
 end
 
 isfolder = {listing.isdir};
