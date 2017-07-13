@@ -61,7 +61,7 @@ end
 
 %if the target folder doesn't exist, make it
 [output_folder,~,~] = fileparts(filename);
-if (not(exist(output_folder,'dir')))
+if (not(isempty(output_folder)) && not(exist(output_folder,'dir')))
     mkdir(output_folder);
 end
 
